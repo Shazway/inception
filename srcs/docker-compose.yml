@@ -1,3 +1,4 @@
+---
 version: "3"
 
 services:
@@ -56,3 +57,4 @@ volumes:
       type: volume
       o: bind
       device: /home/telli/data/database
+...
