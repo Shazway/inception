@@ -1,46 +1,58 @@
 version: "3"
 
 services:
-    mariadb:
-      container_name: mariadb
-      build: ./requirements/mariadb
-      image: mariadb:inception
-      restart: on-failure
-      env_file: .env
-      networks:
-        - network
-      volumes:
-        - database:/var/lib/mysql
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb
+    image: mariadb:inception
+    restart: on-failure
+    env_file: .env
+    networks:
+      - network
+    volumes:
+      - database:/var/lib/mysql
 
-    wordpress:
-      container_name: wordpress
-      build: ./requirements/wordpress
-      image: wordpress:inception
-      restart: on-failure
-      env_file: .env
-      networks:
-        - network
-      volumes:
-        - wordpress:/var/www/wordpress
-      depends_on:
-        - mariadb
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress
+    image: wordpress:inception
+    restart: on-failure
+    env_file: .env
+    networks:
+      - network
+    volumes:
+      - wordpress:/var/www/wordpress
+    depends_on:
+      - mariadb
 
-
-    nginx:
-      container_name: nginx
-      build: ./requirements/nginx
-      image: nginx:inception
-      restart: on-failure
-      ports:
-        - "4242:4242"
-      networks:
-        - network
-      volumes:
-        - wordpress:/var/www/wordpress
-      depends_on:
-        - wordpress
-
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx
+    image: nginx:inception
+    restart: on-failure
+    ports:
+      - "4242:4242"
+    networks:
+      - network
+    volumes:
+      - wordpress:/var/www/wordpress
+    depends_on:
+      - wordpress
 
 networks:
   network:
     driver: bridge
+
+volumes:
+  wordpress:
+    driver: local
+    driver_opts:
+      type: volume
+      o: bind
+      device: /home/telli/data/wordpress
+  database:
+    driver: local
+    driver_opts:
+      type: volume
+      o: bind
+      device: /home/telli/data/database
