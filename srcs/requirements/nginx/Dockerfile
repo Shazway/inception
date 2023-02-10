@@ -10,8 +10,8 @@ RUN apt-get update && \
 #--Generate ssl key and certificate--#
 RUN mkdir /etc/certs/ && \
 	openssl genrsa -out /etc/ssl/private/key.pem 4096 && \
-	openssl req -new -x509 -sha512 -days 3650 -key /etc/ssl/private/key.pem -ouy \
-	/etc/ssl/certs/cert.pem -subj "/c=FT/ST=Paris/L=Paris/O=42/OU=42 Department/CN=localhost"
+	openssl req -new -x509 -sha512 -days 3650 -key /etc/ssl/private/key.pem -out \
+			/etc/ssl/certs/cert.pem -subj "/c=FT/ST=Paris/L=Paris/O=42/OU=42 Department/CN=localhost"
 
 COPY default.conf /etc/nginx/conf.d/default.conf
 
