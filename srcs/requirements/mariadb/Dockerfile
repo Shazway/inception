@@ -5,7 +5,7 @@ RUN apt-get update && \
 	apt-get clean
 
 COPY docker-entrypoint.sh /
-COPY 50-server.conf /etc/mysql/mariadb.conf.d/
+COPY 50-server.cnf /etc/mysql/mariadb.conf.d/
 
 ENTRYPOINT ["bash", "docker-entrypoint.sh"]
 
