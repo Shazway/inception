@@ -21,4 +21,4 @@ ENTRYPOINT ["bash", "init_wordpress.sh"]
 
 CMD ["php-fpm7.3", "-F"]
 
-EXPOSE 3306 9000
+EXPOSE 9000
